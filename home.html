@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SalesGL Home Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      /* Kartları yan yana sıralamak ve her bir satırda üç kart bulunacak şekilde düzenleme */
+      #cardContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* İki kart arasındaki boşluk */
+        justify-content: center; /* Yatay eksende ortalamak için */
+      }
+
+      /* Kartların genişliğini ayarla */
+      .card {
+        width: 18rem;
+        margin-bottom: 20px;
+      }
+      .container {
+        width: 100%; /* Container'ı sayfanın tamamını kaplayacak şekilde ayarla */
+      }
+
+      /* Mobil cihazlar için stil ayarları */
+      @media (max-width: 991px) {
+        /* Navbar arkaplan rengini tam ekran yap */
+        .bg-warning {
+          width: 100%;
+        }
+
+        /* Navbar marka adının boyutunu küçült */
+        .navbar-brand {
+          font-size: 18px;
+        }
+
+        /* Navbar dropdown menüsü */
+        .navbar-nav .dropdown-menu {
+          position: static;
+          float: none;
+          width: auto;
+          color: rgb(0, 62, 114);
+        }
+
+        /* Navbar dropdown menüsü elemanları */
+        .navbar-nav .dropdown-menu .dropdown-item {
+          display: block;
+        }
+
+        /* Form elemanlarının aralıklarını ayarla */
+        .form-control {
+          margin-right: 0;
+        }
+
+        /* Kartların genişliğini ayarla */
+        .card {
+          width: calc(
+            50% - 20px
+          ); /* Mobil cihazlarda iki sütun olacak şekilde ayarla */
+        }
+
+        /* Kart içeriğinin boyutunu küçült */
+        .card-text {
+          font-size: 14px;
+        }
+      }
+
+      /* Ekran çözünürlüğü 550px altında */
+      @media (max-width: 550px) {
+        /* Container'ın genişliğini tam ekran yap */
+        #cardContainer {
+          width: 100%;
+        }
+
+        /* Kartların genişliğini tam ekran yap */
+        .card {
+          width: calc(
+            100% - 20px
+          ); /* Kenar boşluklarını da dikkate alarak ayarla */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg"
+      style="background-color: rgb(0, 62, 114)"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="color: white"
+          >Antalya IKEA Sales GL</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Anasayfa</a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      aria-current="page"
+                      href="https://iwww.ikea.com.tr/"
+                      >İntranet</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Kısayol</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Detaylar
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Performans </a></li>
+                      <li>
+                        <a class="dropdown-item" href="#">Artikel Takip</a>
+                      </li>
+                      <li><hr class="dropdown-divider" /></li>
+                      <li><a class="dropdown-item" href="#">Diğerleri</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true"
+                      >Disabled</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </nav>
+    <br /><br />
+    <div>
+      <form class="d-flex" id="searchForm" role="search">
+        <input
+          id="searchInput"
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button id="startButton">Qr Okut</button>
+      </form>
+      <br />
+      <!-- Kamera önizlemesi ve kameraların listesi -->
+    </div>
+    <div class="container" id="cardContainer">
+      <div class="card">
+        <img id="searchImage" src="" alt="" />
+        <div class="card-body">
+          <p class="card-text">Artikel no : <span id="searchValue"></span></p>
+          <p><a id="dynamicLink1" href="#">Pia Facts</a></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">Artikel: <span id="productNumber"></span></p>
+          <p class="card-text">Açıklama : <span id="description"></span></p>
+          <p class="card-text">Aile : <span id="family"></span></p>
+          <p class="card-text">AWS : <span id="AWS"></span></p>
+          <p class="card-text">EWS : <span id="EWS"></span></p>
+          <p class="card-text">T2 Ciro : <span id="ciro553"></span></p>
+          <p class="card-text">SOH : <span id="SOH"></span></p>
+          <p class="card-text">
+            Fiyat Seviyesi : <span id="PriceLevel"></span>
+          </p>
+          <p class="card-text">BenchMark Fark : <span id="benchmark"></span></p>
+          <p class="card-text">WOS: <span id="WOS"></span></p>
+          <p><a id="dynamicLink2" href="#">Pia Facts</a></p>
+        </div>
+      </div>
+    </div>
+    <br /><br />
+    <div class="container" id="cardContainer" style="height: 90%">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">IKEA Antalya</h5>
+          <p class="card-text">
+            Bu site IKEA Antalya Sales GL ekibi tarafından hazırlanmıştır
+          </p>
+          <p class="card-text">
+            <small class="text-body-secondary">&copy; Ali ÖZ </small>
+          </p>
+          <img src="logo.png" class="card-img-top" alt="..." />
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const previewVideo = document.getElementById("preview");
+      const camerasSelect = document.getElementById("cameras");
+      const startButton = document.getElementById("startButton");
+      let isCameraStarted = false;
+      let scanner = null; // Scanner değişkenini global olarak tanımlayalım
+
+      // Kamerayı başlatma fonksiyonu
+      async function startCamera() {
+        try {
+          if (!isCameraStarted) {
+            // Kullanıcının kamera erişim izni isteniyor
+            const stream = await navigator.mediaDevices.getUserMedia({
+              video: true,
+            });
+
+            // Video elementine akışı atama
+            previewVideo.srcObject = stream;
+
+            // Kullanıcı için mevcut kameraları listeleme
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            devices.forEach((device) => {
+              if (device.kind === "videoinput") {
+                const option = document.createElement("option");
+                option.value = device.deviceId;
+                option.text =
+                  device.label || `Camera ${camerasSelect.length + 1}`;
+                camerasSelect.appendChild(option);
+              }
+            });
+
+            // Scanner'i başlat
+            scanner = new Instascan.Scanner({ video: previewVideo });
+            scanner.addListener("scan", function (content) {
+              // Taranan içeriği searchInput alanına yerleştir
+              document.getElementById("searchInput").value = content;
+
+              // Formu otomatik olarak gönder
+              document.getElementById("searchForm").submit();
+
+              // Kamerayı kapat
+              scanner.stop();
+              isCameraStarted = false;
+              previewVideo.srcObject
+                .getTracks()
+                .forEach((track) => track.stop()); // Kamera akışını durdur
+            });
+
+            isCameraStarted = true;
+          }
+        } catch (error) {
+          console.error("Kamera başlatma hatası:", error);
+          alert("Kamera başlatma hatası: " + error.message);
+        }
+      }
+
+      // Kamerayı başlat butonuna tıklama olayı
+      startButton.addEventListener("click", function () {
+        if (!isCameraStarted) {
+          startCamera();
+        } else {
+          // Kamerayı durdur
+          scanner.stop();
+          isCameraStarted = false;
+          previewVideo.srcObject.getTracks().forEach((track) => track.stop()); // Kamera akışını durdur
+        }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document
+        .getElementById("startButton")
+        .addEventListener("click", function () {
+          window.open("camera.html", "Camera", "width=600,height=600");
+        });
+    </script>
+    <!-- <script>
+      document
+        .getElementById("searchForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Sayfanın yenilenmesini önler
+          var searchValue = document.getElementById("searchInput").value;
+          var imageUrl =
+            "https://aozbucket.s3.eu-north-1.amazonaws.com/" +
+            searchValue +
+            ".jpg";
+
+          // Bağlantıyı güncelle
+          var dynamicLink1 = document.getElementById("dynamicLink1");
+          dynamicLink1.href =
+            "https://piafacts.ikea.net/facts/" +
+            encodeURIComponent(searchValue);
+          dynamicLink1.textContent = "Pia Facts link - " + searchValue;
+
+          // Diğer işlemler
+          document.getElementById("searchImage").src = imageUrl;
+          document.getElementById("searchValue").textContent = searchValue;
+
+          // Ürün bilgilerini getirme işlemi
+          fetch("ProductList.json")
+            .then((response) => response.json())
+            .then((data) => {
+              var matchedProduct = data.find(
+                (product) => product.NO === searchValue
+              );
+              if (matchedProduct) {
+                document.getElementById("productNumber").textContent =
+                  matchedProduct.NO;
+                document.getElementById("description").textContent =
+                  matchedProduct.AÇIKLAMA;
+                document.getElementById("AWS").textContent = matchedProduct.AWS;
+                document.getElementById("EWS").textContent = matchedProduct.EWS;
+                document.getElementById("ciro553").textContent =
+                  matchedProduct["553 CİRO"];
+                document.getElementById("family").textContent =
+                  matchedProduct.AİLE;
+                document.getElementById("SOH").textContent = matchedProduct.SOH;
+                document.getElementById("capacity").textContent =
+                  matchedProduct.Capasity;
+                document.getElementById("benchmark").textContent =
+                  matchedProduct["BenchMark Fark"];
+                document.getElementById("WOS").textContent = matchedProduct.WOS;
+              } else {
+                // Kullanıcı dostu hata mesajını göster
+                document.getElementById("productNumber").textContent = "";
+                document.getElementById("description").textContent = "";
+                document.getElementById("AWS").textContent = "";
+                document.getElementById("EWS").textContent = "";
+                document.getElementById("ciro553").textContent = "";
+                document.getElementById("family").textContent = "";
+                document.getElementById("SOH").textContent = "";
+                document.getElementById("capacity").textContent = "";
+                document.getElementById("benchmark").textContent = "";
+                document.getElementById("WOS").textContent = "";
+                alert("Ürün bulunamadı.");
+              }
+            })
+            .catch((error) => console.error("Hata:", error));
+        });
+    </script> -->
+    <script>
+      document
+        .getElementById("searchForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Sayfanın yenilenmesini önler
+          var searchValue = document.getElementById("searchInput").value;
+          var imageUrl =
+            "https://aozbucket.s3.eu-north-1.amazonaws.com/" +
+            searchValue +
+            ".jpg";
+
+          // Bağlantıyı güncelle
+          var dynamicLink1 = document.getElementById("dynamicLink1");
+          dynamicLink1.href =
+            "https://piafacts.ikea.net/facts/" +
+            encodeURIComponent(searchValue);
+          dynamicLink1.textContent = "Pia Facts link - " + searchValue;
+
+          // Diğer işlemler
+          document.getElementById("searchImage").src = imageUrl;
+          document.getElementById("searchValue").textContent = searchValue;
+
+          // Ürün bilgilerini getirme işlemi
+          fetch("ProductList.json")
+            .then((response) => response.json())
+            .then((data) => {
+              var matchedProduct = data.find(
+                (product) => product.NO === searchValue
+              );
+              if (!matchedProduct) {
+                // Eğer ürün numarasına göre ürün bulunamazsa, açıklamaya göre arama yap
+                matchedProduct = data.find((product) =>
+                  product.AÇIKLAMA.toLowerCase().includes(
+                    searchValue.toLowerCase()
+                  )
+                );
+              }
+              if (matchedProduct) {
+                document.getElementById("productNumber").textContent =
+                  matchedProduct.NO;
+                document.getElementById("description").textContent =
+                  matchedProduct.AÇIKLAMA;
+                document.getElementById("AWS").textContent = matchedProduct.AWS;
+                document.getElementById("EWS").textContent = matchedProduct.EWS;
+                document.getElementById("ciro553").textContent =
+                  matchedProduct["553CİRO"];
+                document.getElementById("family").textContent =
+                  matchedProduct.AİLE;
+                document.getElementById("SOH").textContent = matchedProduct.SOH;
+                document.getElementById("PriceLevel").textContent =
+                  matchedProduct.PriceLeve;
+                document.getElementById("benchmark").textContent =
+                  matchedProduct["FARK"];
+                document.getElementById("WOS").textContent = matchedProduct.WOS;
+              } else {
+                // Kullanıcı dostu hata mesajını göster
+                document.getElementById("productNumber").textContent = "";
+                document.getElementById("description").textContent = "";
+                document.getElementById("AWS").textContent = "";
+                document.getElementById("EWS").textContent = "";
+                document.getElementById("ciro553").textContent = "";
+                document.getElementById("family").textContent = "";
+                document.getElementById("SOH").textContent = "";
+                document.getElementById("capacity").textContent = "";
+                document.getElementById("benchmark").textContent = "";
+                document.getElementById("WOS").textContent = "";
+                alert("Ürün bulunamadı.");
+              }
+            })
+            .catch((error) => console.error("Hata:", error));
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/instascan/1.0.0/instascan.min.js"></script>
+  </body>
+</html>
